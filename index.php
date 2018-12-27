@@ -6,7 +6,7 @@ if(htmlspecialchars($_GET["room"]) == "" ){
     //---------------------
     //modifier pour l'url en cours
     //---------------------
-    header("Location: " . "https://" . $_SERVER['HTTP_HOST'] . "/getChat/index.php?room=" . $room . "#lastmessage");
+    header("Location: " . "https://" . $_SERVER['HTTP_HOST'] . "/getChat/index.php?room=" . $room);
 };
 
 //creation de la db
@@ -18,7 +18,7 @@ if(!empty($_GET['msg'])){
     //---------------------
     //modifier pour l'url en cours
     //---------------------
-    header("Location: " . "https://" . $_SERVER['HTTP_HOST'] . "/getChat/index.php?room=" . $room . "#lastmessage");
+    header("Location: " . "https://" . $_SERVER['HTTP_HOST'] . "/getChat/index.php?room=" . $room);
     exit();
 }
 ?>
@@ -34,15 +34,22 @@ if(!empty($_GET['msg'])){
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>getChat</title>
 </head>
-<body onload="document.getChat.msg.focus();">
+<body onload="document.getChat.msg.focus();" style="background: #36393f; color: #dcddde; margin-top: 0; margin-bottom: 0;">
 	
-	<h1><?php echo $room; ?></h1>
+	
+	
+	<header style="width:60%;padding-left:20%;">
+		<div style="border-left: 1px solid; border-bottom: 1px solid; padding: 5px;">
+			<div>Room: <?php echo $room; ?></div>
+			<div>to destroy this db type "<span>X</span>" in the chat</div>
+		</div>
+	</header>
     
-	<article>
+	<article style="width:60%;padding-left:20%;">
 		<!--liste des message-->
-		<ul id="contentMessage">
+		<ul id="contentMessage" style="border-left: 1px solid; list-style: none; margin-left: 0; padding-left: 5px;">
 			<?php foreach (getmessages(25) as $msg) { ?>
-			<li>
+			<li style="margin-bottom:10px;">
 				<span style="color: rgb(<?php print($msg['rgb']); ?>);">Anon: </span>
 				<?php print(htmlspecialchars($msg['message'])) ?>
 			</li>
@@ -50,11 +57,11 @@ if(!empty($_GET['msg'])){
 		</ul>
 	</article>
 	
-	<footer>
-		<form method="get" name="getChat">
-	        <input name="room" type="text" placeholder="<?php echo $room; ?>" value="<?php echo $room; ?>" required>
-	    	<input name="msg" type="text" class="chatInput"  autocomplete="off"  placeholder="msg" />
-	    	<input type="submit">
+	<footer style="width:60%;padding-left:20%;">
+		<form method="get" name="getChat" style="border-color: #7d7a68; border-top: 1px solid; border-left: 1px solid;">
+	        <input style="width:20%; padding: 2px; font-size: 16px; color: #dcddde; background: none; border: none; outline: none;" name="room" type="text" placeholder="<?php echo $room; ?>" value="<?php echo $room; ?>" required>
+	    	<input style="width:70%; padding: 2px; font-size: 16px; color: #dcddde; background: none; border: none; outline: none; border-left: 1px solid;" name="msg" type="text" class="chatInput"  autocomplete="off"  placeholder="msg" />
+	    	<input value="send" type="submit" style="display: none;">
 	    </form>
 	</footer>
     
